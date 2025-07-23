@@ -1,0 +1,447 @@
+html {
+    scroll-behavior: smooth;
+}
+/* Fuentes personalizadas */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;500;700&display=swap');
+body { font-family: 'Montserrat', sans-serif; color: #333; }
+h1, h2, h3 { font-family: 'Playfair Display', serif; }
+
+/* Hero Section */
+.hero-section {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    background-color: #f0f0f0; /* Fallback background color */
+}
+.hero-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: 0;
+    transform: translate(-50%, -50%);
+    object-fit: cover; /* Ensures the video covers the entire container */
+}
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.9) 10%, rgba(252, 228, 236, 0.3) 100%);
+    backdrop-filter: blur(5px);
+    animation: heroOverlayFadeIn 2s ease-out forwards;
+    z-index: 1; /* Ensure overlay is above video but below content */
+}
+@keyframes heroOverlayFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+.hero-content {
+    z-index: 10;
+    text-align: center;
+    color: #333;
+    animation: fadeInScaleUp 1.8s ease-out forwards;
+    padding: 0 2rem;
+}
+@keyframes fadeInScaleUp {
+    from { opacity: 0; transform: translateY(20px) scale(0.95); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.hero-title-shadow {
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.3), -2px -2px 8px rgba(255,255,255,0.5);
+}
+
+/* Navegación */
+.navbar-link {
+    position: relative;
+    transition: color 0.3s ease;
+}
+.navbar-link::after {
+    content: '';
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: #EC4899;
+    transition: width 0.3s ease-out;
+}
+.navbar-link:hover::after {
+    width: 100%;
+}
+
+/* Galería (Carrusel) */
+.gallery-section {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to bottom right, #FCE4EC 0%, #FFF 100%);
+    padding: 4rem 2rem;
+    text-align: center;
+}
+.gallery-main-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    max-width: 1400px; /* Increased max-width for more space */
+    width: 100%;
+    align-items: center;
+    padding-top: 2rem;
+}
+@media (min-width: 768px) {
+    .gallery-main-content {
+        flex-direction: row;
+        gap: 5rem; /* Increased gap */
+        justify-content: center;
+        align-items: flex-start;
+    }
+}
+
+.carousel-container {
+    position: relative;
+    width: 100%;
+    max-width: 600px; /* Increased max-width for carousel */
+    height: 450px; /* Increased height */
+    min-height: 350px;
+    overflow: hidden;
+    border-radius: 1.5rem;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    flex-shrink: 0;
+}
+@media (min-width: 768px) {
+    .carousel-container {
+        width: 55%; /* Slightly more space for carousel on desktop */
+    }
+}
+
+.carousel-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: opacity 1.2s ease-in-out;
+}
+.carousel-image.active {
+    opacity: 1;
+}
+.carousel-dots {
+    position: absolute;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 0.75rem;
+    z-index: 20;
+}
+.dot {
+    width: 12px;
+    height: 12px;
+    background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+.dot.active {
+    background-color: #EC4899;
+    transform: scale(1.2);
+}
+
+.gallery-text-content {
+    width: 100%;
+    max-width: 600px; /* Increased max-width for text content */
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.8s ease-in-out;
+    animation: fadeInText 1s forwards;
+    animation-delay: 0.5s;
+}
+.gallery-text-content.active {
+    opacity: 1;
+}
+@media (min-width: 768px) {
+    .gallery-text-content {
+        width: 45%; /* Slightly less space for text on desktop */
+        text-align: left;
+    }
+}
+
+@keyframes fadeInText {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.gallery-complementary-info {
+    margin-top: 4rem; /* Space above this section */
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: center;
+    text-align: center;
+}
+
+@media (min-width: 768px) {
+    .gallery-complementary-info {
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: flex-start;
+        text-align: left;
+    }
+}
+.complementary-card {
+    background-color: #FFF;
+    padding: 2.5rem;
+    border-radius: 1rem;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+    width: 100%;
+    max-width: 380px;
+}
+
+/* Formulario de contacto y Mapa */
+.contact-form-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to bottom right, #FFF 0%, #FCE4EC 100%);
+    padding: 3rem 2rem;
+    text-align: center;
+}
+.contact-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    max-width: 1200px;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    padding-top: 2rem;
+}
+@media (min-width: 1024px) {
+    .contact-content-wrapper {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
+    }
+}
+
+.form-card {
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 1.5rem;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+    padding: 3rem;
+    max-width: 600px;
+    width: 100%;
+    backdrop-filter: blur(8px);
+    flex-shrink: 0;
+}
+@media (min-width: 1024px) {
+    .form-card {
+        width: 48%;
+    }
+}
+
+.google-map-container {
+    width: 100%;
+    max-width: 600px;
+    height: 450px;
+    border-radius: 1.5rem;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+@media (min-width: 1024px) {
+    .google-map-container {
+        width: 48%;
+    }
+}
+.google-map-container iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+.form-input, .form-textarea {
+    width: 100%;
+    padding: 1rem;
+    margin-bottom: 1.25rem;
+    border: 2px solid #FFCDD2;
+    border-radius: 0.75rem;
+    background-color: #FFF;
+    color: #333;
+    transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
+.form-input:focus, .form-textarea:focus {
+    outline: none;
+    border-color: #F8BBD0;
+    box-shadow: 0 0 0 4px rgba(248, 187, 208, 0.4);
+}
+.submit-button {
+    background-color: #F8BBD0;
+    color: #fff;
+    padding: 1rem 2rem;
+    border-radius: 0.75rem;
+    font-weight: bold;
+    font-size: 1.1rem;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 5px 15px rgba(248, 187, 208, 0.4);
+}
+.submit-button:hover {
+    background-color: #F48FB1;
+    transform: translateY(-3px);
+}
+
+/* Animación sutil para títulos */
+.animate-pulse-subtle {
+    animation: pulse-subtle 3s infinite ease-in-out;
+}
+@keyframes pulse-subtle {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.005); opacity: 0.98; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* Footer */
+.footer-section {
+    background-color: #FCE4EC; /* Soft pink background */
+    padding: 4rem 2rem;
+    color: #4A5568; /* Darker gray for text */
+    font-family: 'Montserrat', sans-serif;
+}
+.footer-content {
+    display: grid;
+    gap: 2.5rem;
+    text-align: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+@media (min-width: 768px) {
+    .footer-content {
+        grid-template-columns: repeat(3, 1fr); /* 3 columns on medium screens */
+        text-align: left;
+    }
+}
+@media (min-width: 1024px) {
+    .footer-content {
+        grid-template-columns: repeat(4, 1fr); /* 4 columns on large screens */
+    }
+}
+.footer-logo img {
+    max-width: 150px;
+    margin: 0 auto 1rem;
+}
+@media (min-width: 768px) {
+    .footer-logo img {
+        margin: 0 0 1rem;
+    }
+}
+.footer-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem; /* text-2xl */
+    font-weight: 700; /* font-bold */
+    color: #EC4899; /* Pink-500 */
+    margin-bottom: 1.5rem;
+}
+.footer-link, .footer-text {
+    color: #6B7280; /* Gray-600 */
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+    display: block; /* For links to take full width */
+    transition: color 0.3s ease;
+}
+.footer-link:hover {
+    color: #EC4899; /* Pink-500 on hover */
+}
+.footer-social-icons a {
+    color: #6B7280; /* Gray-600 */
+    transition: color 0.3s ease, transform 0.3s ease;
+    margin-right: 1.25rem;
+}
+.footer-social-icons a:hover {
+    color: #EC4899; /* Pink-500 on hover */
+    transform: scale(1.2);
+}
+
+.itext {
+    color: #000000 !important;
+    
+}
+
+/* ... (existing CSS code above the contact form section) ... */
+
+/* Formulario de contacto y Mapa */
+.contact-form-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to bottom right, #FFF 0%, #FCE4EC 100%);
+    padding: 3rem 2rem;
+    text-align: center;
+}
+.contact-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    max-width: 1200px;
+    width: 100%;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding-top: 2rem;
+}
+@media (min-width: 1024px) {
+    .contact-content-wrapper {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
+    }
+}
+
+.form-card {
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 1.5rem;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+    padding: 3rem;
+    max-width: 600px;
+    width: 100%;
+    backdrop-filter: blur(8px);
+    flex-shrink: 0;
+}
+@media (min-width: 1024px) {
+    .form-card {
+        width: 50%; /* Reduce form width to make space for a larger map */
+        max-width: 600px; /* Keep a reasonable max-width */
+    }
+}
+
+.google-map-container {
+    width: 100%;
+    max-width: 600px;
+    height: 450px;
+    border-radius: 1.5rem;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+@media (min-width: 1024px) {
+    .google-map-container {
+        width: 45%; /* Increase map width */
+        height: 600px; /* Increase map height */
+        min-width: 700px; /* Ensure a reasonable minimum width */
+    }
+}
+
+/* ... (rest of your CSS code below) ... */
